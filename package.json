@@ -1,0 +1,17 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "description": "A simple Node.js HTTP server built by Amarendra Reddy using the native http module.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "http",
+    "server",
+    "amarendra"
+  ],
+  "author": "Amarendra Reddy",
+  "license": "ISC"
+}

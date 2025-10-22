@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amar-node
+  labels:
+    app: amar-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amar-node
+  template:
+    metadata:
+      labels:
+        app: amar-node
+    spec:
+      containers:
+        - name: amar-node
+          image: amar-node:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          env:
+            - name: PORT
+              value: "4000"
+          readinessProbe:
+            httpGet: { path: "/", port: 4000 }
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: "/", port: 4000 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: amar-node-svc
+spec:
+  selector:
+    app: amar-node
+  type: NodePort
+  ports:
+    - port: 4000
+      targetPort: 4000
+      nodePort: 30080   # browse http://localhost:30080
